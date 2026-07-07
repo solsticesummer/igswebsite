@@ -544,3 +544,17 @@ a { color: inherit; text-decoration: none; }
   .carousel-arrow-prev { left: calc(50% - 56px); }
   .carousel-arrow-next { right: calc(50% - 56px); }
 }
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161c;
+    --white: #1c1f27;
+    --ink: #f2f4f7;
+    --text: #c7cbd4;
+    --text-muted: #8b91a0;
+    --border: #2b2f3a;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .partners-photo { background: #fff; }
+}
