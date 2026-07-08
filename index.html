@@ -11,14 +11,14 @@
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="#home" class="brand">
+    <a href="#home" class="brand" data-section="home">
       <img src="images/logo-wide-color.png" alt="IGS 中国（成都）国际数字娱乐博览会" class="brand-logo">
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <nav class="main-nav" id="mainNav">
-      <a href="#home" class="nav-link" data-section="home">首页</a>
+      <a href="#home" class="nav-link is-active" data-section="home">首页</a>
       <a href="#about" class="nav-link" data-section="about">关于IGS</a>
       <a href="#plan" class="nav-link" data-section="plan">本届规划</a>
       <a href="#history" class="nav-link" data-section="history">往届回顾</a>
@@ -30,7 +30,7 @@
 <main>
 
   <!-- 首页 Home -->
-  <section id="home" class="hero">
+  <section id="home" class="hero is-active">
     <div class="hero-bg" style="background-image: url('images/hero-bg.jpg');"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content container">
@@ -38,7 +38,7 @@
       <h1 class="hero-title">IGS·全球数字文创发展大会</h1>
       <p class="hero-location">中国·成都</p>
       <p class="hero-dates">2026.09.29-30</p>
-      <a href="#about" class="btn btn-primary">
+      <a href="#about" class="btn btn-primary" data-section="about">
         了解本届IGS <span class="arrow">→</span>
       </a>
     </div>
@@ -196,15 +196,17 @@
       </div>
 
       <div class="tab-panel is-active" data-tab-panel="highlights">
-        <img src="images/history-overview-grid.jpg" alt="往届盛况回顾照片墙" class="history-overview-photo">
-
         <div class="carousel" id="historyCarousel">
-          <button class="carousel-arrow carousel-arrow-prev" data-carousel="history" data-dir="-1" aria-label="上一年">◀</button>
-          <button class="carousel-arrow carousel-arrow-next" data-carousel="history" data-dir="1" aria-label="下一年">▶</button>
+          <button class="carousel-arrow carousel-arrow-prev" data-carousel="history" data-dir="-1" aria-label="上一张">◀</button>
+          <button class="carousel-arrow carousel-arrow-next" data-carousel="history" data-dir="1" aria-label="下一张">▶</button>
 
           <div class="carousel-track">
 
-            <div class="carousel-slide is-active year-slide">
+            <div class="carousel-slide is-active overview-slide">
+              <img src="images/history-overview-grid.jpg" alt="往届盛况回顾照片墙" class="history-overview-photo">
+            </div>
+
+            <div class="carousel-slide year-slide">
               <div class="year-photos">
                 <img src="images/history-2018.jpg" alt="2018 IGS 成都（国际）数字娱乐博览会">
               </div>
@@ -306,15 +308,12 @@
         <img src="images/guests-2.jpg" alt="往届参会嘉宾" class="guests-photo">
       </div>
 
-    </div>
-    <p class="section-caption">IGS· CHINA（CHENGDU）INTERNATIONAL DIGITAL ENTERTAINMENT EXPO</p>
-  </section>
+      <!-- 往届部分合作伙伴 Past partners -->
+      <div class="partners-block">
+        <h2 class="section-title">往届部分合作伙伴</h2>
+        <img src="images/partner-logos.png" alt="往届部分合作伙伴 logo 墙" class="about-grid-photo partners-photo">
+      </div>
 
-  <!-- 往届部分合作伙伴 Past partners -->
-  <section class="section partners-section">
-    <div class="container">
-      <h2 class="section-title">往届部分合作伙伴</h2>
-      <img src="images/partner-logos.png" alt="往届部分合作伙伴 logo 墙" class="about-grid-photo partners-photo">
     </div>
     <p class="section-caption">IGS· CHINA（CHENGDU）INTERNATIONAL DIGITAL ENTERTAINMENT EXPO</p>
   </section>

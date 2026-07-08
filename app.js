@@ -17,7 +17,7 @@
     });
   });
 
-  /* ---------- Scroll-spy nav highlighting ---------- */
+  /* ---------- Page-view section switching ---------- */
   var sections = Array.prototype.slice.call(document.querySelectorAll("main > section[id]"));
   var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-link"));
 
@@ -27,18 +27,24 @@
     });
   }
 
-  var spyObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          setActiveNav(entry.target.id);
-        }
-      });
-    },
-    { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
-  );
+  function showSection(id) {
+    var target = document.getElementById(id) ? id : "home";
+    sections.forEach(function (section) {
+      section.classList.toggle("is-active", section.id === target);
+    });
+    setActiveNav(target);
+    window.scrollTo(0, 0);
+  }
 
-  sections.forEach(function (section) { spyObserver.observe(section); });
+  document.querySelectorAll("[data-section]").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      showSection(link.dataset.section);
+      history.pushState(null, "", "#" + link.dataset.section);
+    });
+  });
+
+  showSection((location.hash || "").replace("#", "") || "home");
 
   /* ---------- Generic carousel ---------- */
   function initCarousel(root, dotsContainer) {

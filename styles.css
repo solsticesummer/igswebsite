@@ -101,9 +101,16 @@ a { color: inherit; text-decoration: none; }
 
 /* Section basics */
 .section {
+  display: none;
   padding: 72px 0 48px;
   position: relative;
 }
+
+.section.is-active { display: block; }
+
+.hero.is-active { display: flex; }
+
+.partners-block { margin-top: 56px; }
 
 .section-title {
   font-size: 32px;
@@ -171,9 +178,9 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Hero ---------- */
 .hero {
+  display: none;
   position: relative;
   min-height: 100vh;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
@@ -250,14 +257,18 @@ a { color: inherit; text-decoration: none; }
 }
 
 .stat-number {
-  font-size: 34px;
-  font-weight: 800;
+  font-size: 40px;
+  font-weight: 900;
   font-style: italic;
+  font-stretch: condensed;
   color: var(--blue);
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
 }
 
-.stats-row-red .stat-number { color: var(--red); }
+.stats-row-red .stat-number {
+  color: var(--red);
+  font-size: 52px;
+}
 
 .stat-label {
   font-size: 14px;
@@ -433,11 +444,9 @@ a { color: inherit; text-decoration: none; }
 .history-overview-photo {
   width: 100%;
   border-radius: 12px;
-  margin: 32px 0 48px;
 }
 
 .year-slide {
-  display: grid;
   grid-template-columns: 380px 1fr;
   gap: 40px;
 }
@@ -537,7 +546,8 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 560px) {
   .stats-row { gap: 20px; }
   .stat { min-width: 100px; }
-  .stat-number { font-size: 26px; }
+  .stat-number { font-size: 30px; }
+  .stats-row-red .stat-number { font-size: 38px; }
   .schedule-grid { grid-template-columns: 1fr; }
   .carousel { padding: 0 0 56px; }
   .carousel-arrow { top: auto; bottom: 0; transform: none; }
