@@ -10,7 +10,7 @@
     navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
   });
 
-  mainNav.querySelectorAll(".nav-link").forEach(function (link) {
+  mainNav.querySelectorAll("a").forEach(function (link) {
     link.addEventListener("click", function () {
       mainNav.classList.remove("is-open");
       navToggle.setAttribute("aria-expanded", "false");
@@ -32,8 +32,9 @@
     sections.forEach(function (section) {
       section.classList.toggle("is-active", section.id === target);
     });
+    document.body.classList.toggle("on-home", target === "home");
     setActiveNav(target);
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }
 
   document.querySelectorAll("[data-section]").forEach(function (link) {
@@ -46,36 +47,30 @@
 
   showSection((location.hash || "").replace("#", "") || "home");
 
+  // Defeat the browser's native hash-anchor scroll so sections always open at the top
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.addEventListener("load", function () {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  });
+
   /* ---------- Generic carousel ---------- */
-  function initCarousel(root, dotsContainer) {
+  function initCarousel(root) {
     var slides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
     var current = 0;
 
-    slides.forEach(function (_, i) {
-      var dot = document.createElement("button");
-      dot.className = "carousel-dot" + (i === 0 ? " is-active" : "");
-      dot.setAttribute("aria-label", "第 " + (i + 1) + " 张");
-      dot.addEventListener("click", function () { goTo(i); });
-      dotsContainer.appendChild(dot);
-    });
-
-    var dots = Array.prototype.slice.call(dotsContainer.children);
-
     function goTo(index) {
       slides[current].classList.remove("is-active");
-      dots[current].classList.remove("is-active");
       current = (index + slides.length) % slides.length;
       slides[current].classList.add("is-active");
-      dots[current].classList.add("is-active");
     }
 
     return { next: function () { goTo(current + 1); }, prev: function () { goTo(current - 1); } };
   }
 
   var carousels = {
-    about: initCarousel(document.getElementById("aboutCarousel"), document.getElementById("aboutDots")),
-    plan: initCarousel(document.getElementById("planCarousel"), document.getElementById("planDots")),
-    history: initCarousel(document.getElementById("historyCarousel"), document.getElementById("historyDots"))
+    about: initCarousel(document.getElementById("aboutCarousel")),
+    plan: initCarousel(document.getElementById("planCarousel")),
+    history: initCarousel(document.getElementById("historyCarousel"))
   };
 
   document.querySelectorAll(".carousel-arrow").forEach(function (btn) {
@@ -85,16 +80,18 @@
     });
   });
 
-  /* ---------- History tabs ---------- */
-  var tabs = Array.prototype.slice.call(document.querySelectorAll("#historyTabs .tab"));
+  /* ---------- History panels (nav dropdown) ---------- */
   var panels = Array.prototype.slice.call(document.querySelectorAll(".tab-panel"));
 
-  tabs.forEach(function (tab) {
-    tab.addEventListener("click", function () {
-      tabs.forEach(function (t) { t.classList.remove("is-active"); });
-      panels.forEach(function (p) { p.classList.remove("is-active"); });
-      tab.classList.add("is-active");
-      document.querySelector('.tab-panel[data-tab-panel="' + tab.dataset.tab + '"]').classList.add("is-active");
+  function activateHistoryPanel(name) {
+    panels.forEach(function (p) {
+      p.classList.toggle("is-active", p.dataset.tabPanel === name);
+    });
+  }
+
+  document.querySelectorAll("[data-history-tab]").forEach(function (link) {
+    link.addEventListener("click", function () {
+      activateHistoryPanel(link.dataset.historyTab);
     });
   });
 })();

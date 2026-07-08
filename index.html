@@ -12,7 +12,8 @@
 <header class="site-header">
   <div class="container header-inner">
     <a href="#home" class="brand" data-section="home">
-      <img src="images/logo-wide-color.png" alt="IGS 中国（成都）国际数字娱乐博览会" class="brand-logo">
+      <img src="images/logo-icon-color.png" alt="IGS 中国（成都）国际数字娱乐博览会" class="brand-logo brand-logo-color">
+      <img src="images/logo-white.png" alt="IGS 中国（成都）国际数字娱乐博览会" class="brand-logo brand-logo-white">
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -21,7 +22,13 @@
       <a href="#home" class="nav-link is-active" data-section="home">首页</a>
       <a href="#about" class="nav-link" data-section="about">关于IGS</a>
       <a href="#plan" class="nav-link" data-section="plan">本届规划</a>
-      <a href="#history" class="nav-link" data-section="history">往届回顾</a>
+      <div class="nav-item has-dropdown">
+        <a href="#history" class="nav-link" data-section="history">往届回顾</a>
+        <div class="nav-dropdown">
+          <a href="#history" data-section="history" data-history-tab="highlights">往届盛况回顾</a>
+          <a href="#history" data-section="history" data-history-tab="guests">往届嘉宾回顾</a>
+        </div>
+      </div>
       <a href="#contact" class="nav-link" data-section="contact">联系我们</a>
     </nav>
   </div>
@@ -34,9 +41,10 @@
     <div class="hero-bg" style="background-image: url('images/hero-bg.jpg');"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content container">
-      <p class="hero-eyebrow">IGS·GLOBAL DIGITAL CULTURAL<br>AND CREATIVE DEVELOPMENT CONFERENCE</p>
-      <h1 class="hero-title">IGS·全球数字文创发展大会</h1>
-      <p class="hero-location">中国·成都</p>
+      <h1 class="hero-heading">
+        <img class="hero-wordmark" src="images/conference-logo-white.png" alt="IGS·全球数字文创发展大会 IGS·GLOBAL DIGITAL CULTURAL AND CREATIVE DEVELOPMENT CONFERENCE">
+      </h1>
+      <p class="hero-location">中国 · 成都</p>
       <p class="hero-dates">2026.09.29-30</p>
       <a href="#about" class="btn btn-primary" data-section="about">
         了解本届IGS <span class="arrow">→</span>
@@ -90,7 +98,6 @@
 
         </div>
 
-        <div class="carousel-dots" id="aboutDots"></div>
       </div>
     </div>
     <p class="section-caption">IGS· CHINA（CHENGDU）INTERNATIONAL DIGITAL ENTERTAINMENT EXPO</p>
@@ -98,9 +105,8 @@
 
   <!-- 本届规划 This year's plan -->
   <section id="plan" class="section plan-section">
+    <img src="images/plan-banner.png" alt="2026 IGS 全球数字文创生态大会 AI赋能·生态共融 中国·成都·西博城 2026.09.29-09.30" class="plan-banner">
     <div class="container">
-      <img src="images/plan-banner.png" alt="2026 IGS 全球数字文创生态大会 AI赋能·生态共融 中国·成都·西博城 2026.09.29-09.30" class="plan-banner">
-
       <div class="carousel" id="planCarousel">
         <button class="carousel-arrow carousel-arrow-prev" data-carousel="plan" data-dir="-1" aria-label="上一张">◀</button>
         <button class="carousel-arrow carousel-arrow-next" data-carousel="plan" data-dir="1" aria-label="下一张">▶</button>
@@ -204,7 +210,6 @@
 
         </div>
 
-        <div class="carousel-dots" id="planDots"></div>
       </div>
     </div>
     <p class="section-caption">IGS· CHINA（CHENGDU）INTERNATIONAL DIGITAL ENTERTAINMENT EXPO</p>
@@ -213,13 +218,6 @@
   <!-- 往届回顾 Past review -->
   <section id="history" class="section history-section">
     <div class="container">
-      <div class="history-header">
-        <div class="tabs" id="historyTabs">
-          <button class="tab is-active" data-tab="highlights">往届盛况回顾</button>
-          <button class="tab" data-tab="guests">往届嘉宾回顾</button>
-        </div>
-      </div>
-
       <div class="tab-panel is-active" data-tab-panel="highlights">
         <h2 class="section-title">往届盛况回顾</h2>
         <div class="carousel" id="historyCarousel">
@@ -324,7 +322,6 @@
             </div>
 
           </div>
-          <div class="carousel-dots" id="historyDots"></div>
         </div>
       </div>
 
@@ -346,9 +343,10 @@
 
   <!-- 联系我们 Contact -->
   <section id="contact" class="section contact-section">
-    <div class="container contact-grid">
+    <div class="container">
+      <h2 class="section-title">联系我们</h2>
+      <div class="contact-grid">
       <div class="contact-info">
-        <h2 class="section-title">联系我们</h2>
         <p class="body-text">会议咨询/合作：18781997673 李女士</p>
         <p class="body-text">邮箱：<a href="mailto:NFG@neo-flying.com">NFG@neo-flying.com</a></p>
         <img src="images/wechat-qr.png" alt="官方微信公众号二维码" class="qr-code">
@@ -356,6 +354,7 @@
       </div>
       <div class="contact-logo">
         <img src="images/logo-3d.png" alt="IGS 3D logo">
+      </div>
       </div>
     </div>
     <p class="section-caption">IGS· CHINA（CHENGDU）INTERNATIONAL DIGITAL ENTERTAINMENT EXPO</p>
