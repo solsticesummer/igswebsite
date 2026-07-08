@@ -410,14 +410,23 @@ main > section { scroll-margin-top: 9999px; }
 }
 
 .carousel-arrow:hover { opacity: 0.75; }
-/* Pin the arrows ~14px in from the viewport edges regardless of container width */
-.carousel-arrow-prev { left: calc((100% - 100vw) / 2 + 14px); }
-.carousel-arrow-next { right: calc((100% - 100vw) / 2 + 14px); }
+/* Pin the arrows a fluid ~2vw in from the viewport edges regardless of container width */
+.carousel-arrow-prev { left: calc((100% - 100vw) / 2 + clamp(0.875rem, 2vw, 2rem)); }
+.carousel-arrow-next { right: calc((100% - 100vw) / 2 + clamp(0.875rem, 2vw, 2rem)); }
 .carousel-arrow-prev:hover { transform: translateY(-50%) translateX(-3px); }
 .carousel-arrow-next:hover { transform: translateY(-50%) translateX(3px); }
 
 .plan-section .carousel-arrow { color: var(--red); }
 .history-section .carousel-arrow { color: var(--yellow); }
+
+/* Mid-size viewports: the viewport gutter is too narrow to hold the arrows,
+   so reserve a fluid gutter inside the carousel and pin the arrows to it —
+   the text-to-arrow gap can never collapse */
+@media (max-width: 1480px) and (min-width: 561px) {
+  .carousel { padding-inline: clamp(3.5rem, 5vw, 4.5rem); }
+  .carousel-arrow-prev { left: 0; }
+  .carousel-arrow-next { right: 0; }
+}
 
 /* ---------- Plan section ---------- */
 .plan-section { padding-top: 0; }
@@ -648,8 +657,8 @@ main > section { scroll-margin-top: 9999px; }
   .stats-row-red { gap: 32px; }
   .stats-row-red .stat-number { font-size: 48px; }
   .schedule-grid { grid-template-columns: 1fr; white-space: normal; }
-  .carousel { padding-bottom: 48px; }
-  .carousel-arrow { top: auto; bottom: 24px; transform: none; }
-  .carousel-arrow-prev { left: calc(50% - 56px); }
-  .carousel-arrow-next { right: calc(50% - 56px); }
+  .carousel { padding-bottom: 4rem; }
+  .carousel-arrow { top: auto; bottom: 0.75rem; transform: none; }
+  .carousel-arrow-prev { left: calc(50% - 3.5rem); }
+  .carousel-arrow-next { right: calc(50% - 3.5rem); }
 }
