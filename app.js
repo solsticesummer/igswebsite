@@ -66,12 +66,15 @@
     return { next: function () { goTo(current + 1); }, prev: function () { goTo(current - 1); } };
   }
 
-  var aboutCarousel = initCarousel(document.getElementById("aboutCarousel"), document.getElementById("aboutDots"));
-  var historyCarousel = initCarousel(document.getElementById("historyCarousel"), document.getElementById("historyDots"));
+  var carousels = {
+    about: initCarousel(document.getElementById("aboutCarousel"), document.getElementById("aboutDots")),
+    plan: initCarousel(document.getElementById("planCarousel"), document.getElementById("planDots")),
+    history: initCarousel(document.getElementById("historyCarousel"), document.getElementById("historyDots"))
+  };
 
   document.querySelectorAll(".carousel-arrow").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      var target = btn.dataset.carousel === "about" ? aboutCarousel : historyCarousel;
+      var target = carousels[btn.dataset.carousel];
       if (btn.dataset.dir === "1") target.next(); else target.prev();
     });
   });

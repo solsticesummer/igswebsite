@@ -88,12 +88,6 @@
             <img src="images/about-3-grid.jpg" alt="IGS 数字娱乐博览会照片墙" class="about-grid-photo">
           </div>
 
-          <!-- Slide 4: Partners -->
-          <div class="carousel-slide">
-            <h2 class="section-title">往届部分合作伙伴</h2>
-            <img src="images/partner-logos.png" alt="往届部分合作伙伴 logo 墙" class="about-grid-photo partners-photo">
-          </div>
-
         </div>
 
         <div class="carousel-dots" id="aboutDots"></div>
@@ -107,62 +101,84 @@
     <div class="container">
       <img src="images/plan-banner.png" alt="2026 IGS 全球数字文创生态大会 AI赋能·生态共融 中国·成都·西博城 2026.09.29-09.30" class="plan-banner">
 
-      <div class="card plan-card">
-        <div class="plan-card-media">
-          <img src="images/venue-map.png" alt="BTB会议区规划图 中国西部国际博览城·9号馆">
-        </div>
-        <div class="plan-card-body">
-          <p class="body-text">
-            2026 第七届 IGS 全球数字文创发展大会将于 9 月 29 日至 30 日在中国西部国际博览城举行。展会始于2018年，常年汇聚全球数字文创上下游企业。
-            本届大会主题为"AI 赋能，生态共融"，深耕人工智能、游戏、短漫剧、品牌出海、IP、文旅等核心产业。围绕 AI 落地应用、IP 品牌赋能、产业项目合作、流量变现、跨界融合等行业热点，开展峰会论坛、项目路演、战略合作签约、产品推介、商务对接、投融资对接等专场活动，打通产业链资源壁垒，助力企业挖掘产业新增长点。
-          </p>
-          <div class="stats-row stats-row-red">
-            <div class="stat"><span class="stat-number">1</span><span class="stat-label">主峰会</span></div>
-            <div class="stat"><span class="stat-number">16</span><span class="stat-label">平行论坛</span></div>
-            <div class="stat"><span class="stat-number">60+</span><span class="stat-label">BTB展位</span></div>
-          </div>
-        </div>
-      </div>
+      <div class="carousel" id="planCarousel">
+        <button class="carousel-arrow carousel-arrow-prev" data-carousel="plan" data-dir="-1" aria-label="上一张">◀</button>
+        <button class="carousel-arrow carousel-arrow-next" data-carousel="plan" data-dir="1" aria-label="下一张">▶</button>
 
-      <div class="card schedule-card">
-        <h2 class="section-title schedule-title">大会日程</h2>
-        <p class="eyebrow">CONFERENCE SCHEDULE</p>
+        <div class="carousel-track">
 
-        <div class="schedule-row">
-          <div class="schedule-icon">📅</div>
-          <div>
-            <div class="schedule-label">时间 <span class="eyebrow-inline">TIME</span></div>
-            <div class="schedule-value">09.29【Tue】- 09.30【Wed】</div>
-          </div>
-        </div>
-
-        <div class="schedule-row">
-          <div class="schedule-icon">📍</div>
-          <div>
-            <div class="schedule-label">地点 <span class="eyebrow-inline">SITE</span></div>
-            <div class="schedule-value">中国西部国际博览城9号馆</div>
-          </div>
-        </div>
-
-        <div class="schedule-row">
-          <div class="schedule-icon">🚗</div>
-          <div>
-            <div class="schedule-label">交通 <span class="eyebrow-inline">TRANS</span></div>
-            <div class="schedule-value schedule-grid">
-              <span>成都双流国际机场 33KM</span>
-              <span>成都东站 32KM</span>
-              <span>地铁1号线【广州路站D/F口】</span>
-              <span>成都天府国际机场 51KM</span>
-              <span>成都南站 21KM</span>
-              <span>地铁18号线【广州路站C/E口】</span>
+          <!-- Slide 1: Intro + stats -->
+          <div class="carousel-slide is-active">
+            <div class="card plan-card">
+              <div class="plan-card-media">
+                <img src="images/plan-1-photo.jpg" alt="2026 IGS 全球数字文创发展大会现场">
+              </div>
+              <div class="plan-card-body">
+                <p class="body-text">
+                  2026 第七届 IGS 全球数字文创发展大会将于 9 月 29 日至 30 日在中国西部国际博览城举行。展会始于2018年，常年汇聚全球数字文创上下游企业。
+                  本届大会主题为"AI 赋能，生态共融"，深耕人工智能、游戏、短漫剧、品牌出海、IP、文旅等核心产业。围绕 AI 落地应用、IP 品牌赋能、产业项目合作、流量变现、跨界融合等行业热点，开展峰会论坛、项目路演、战略合作签约、产品推介、商务对接、投融资对接等专场活动，打通产业链资源壁垒，助力企业挖掘产业新增长点。
+                </p>
+                <div class="stats-row stats-row-red">
+                  <div class="stat"><span class="stat-number">1</span><span class="stat-label">主峰会</span></div>
+                  <div class="stat"><span class="stat-number">16</span><span class="stat-label">平行论坛</span></div>
+                  <div class="stat"><span class="stat-number">60+</span><span class="stat-label">BTB展位</span></div>
+                </div>
+              </div>
             </div>
           </div>
+
+          <!-- Slide 2: Venue map + schedule -->
+          <div class="carousel-slide">
+            <div class="card plan-card">
+              <div class="plan-card-media">
+                <img src="images/venue-map.png" alt="BTB会议区规划图 中国西部国际博览城·9号馆">
+              </div>
+              <div class="plan-card-body schedule-card">
+                <h2 class="section-title schedule-title">大会日程</h2>
+                <p class="eyebrow">CONFERENCE SCHEDULE</p>
+
+                <div class="schedule-row">
+                  <div class="schedule-icon">📅</div>
+                  <div>
+                    <div class="schedule-label">时间 <span class="eyebrow-inline">TIME</span></div>
+                    <div class="schedule-value">09.29【Tue】- 09.30【Wed】</div>
+                  </div>
+                </div>
+
+                <div class="schedule-row">
+                  <div class="schedule-icon">📍</div>
+                  <div>
+                    <div class="schedule-label">地点 <span class="eyebrow-inline">SITE</span></div>
+                    <div class="schedule-value">中国西部国际博览城9号馆</div>
+                  </div>
+                </div>
+
+                <div class="schedule-row">
+                  <div class="schedule-icon">🚗</div>
+                  <div>
+                    <div class="schedule-label">交通 <span class="eyebrow-inline">TRANS</span></div>
+                    <div class="schedule-value schedule-grid">
+                      <span>成都双流国际机场 33KM</span>
+                      <span>成都东站 32KM</span>
+                      <span>地铁1号线【广州路站D/F口】</span>
+                      <span>成都天府国际机场 51KM</span>
+                      <span>成都南站 21KM</span>
+                      <span>地铁18号线【广州路站C/E口】</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="schedule-media">
+                  <div class="schedule-label">战略合作媒体 <span class="eyebrow-inline">STRATEGIC COOPERATIVE MEDIA</span></div>
+                  <div class="schedule-value">角研社</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <div class="schedule-media">
-          <div class="schedule-label">战略合作媒体 <span class="eyebrow-inline">STRATEGIC COOPERATIVE MEDIA</span></div>
-          <div class="schedule-value">角研社</div>
-        </div>
+        <div class="carousel-dots" id="planDots"></div>
       </div>
     </div>
     <p class="section-caption">IGS· CHINA（CHENGDU）INTERNATIONAL DIGITAL ENTERTAINMENT EXPO</p>
@@ -290,6 +306,15 @@
         <img src="images/guests-2.jpg" alt="往届参会嘉宾" class="guests-photo">
       </div>
 
+    </div>
+    <p class="section-caption">IGS· CHINA（CHENGDU）INTERNATIONAL DIGITAL ENTERTAINMENT EXPO</p>
+  </section>
+
+  <!-- 往届部分合作伙伴 Past partners -->
+  <section class="section partners-section">
+    <div class="container">
+      <h2 class="section-title">往届部分合作伙伴</h2>
+      <img src="images/partner-logos.png" alt="往届部分合作伙伴 logo 墙" class="about-grid-photo partners-photo">
     </div>
     <p class="section-caption">IGS· CHINA（CHENGDU）INTERNATIONAL DIGITAL ENTERTAINMENT EXPO</p>
   </section>
