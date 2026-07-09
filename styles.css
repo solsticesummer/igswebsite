@@ -410,12 +410,13 @@ main > section { scroll-margin-top: 9999px; }
   transition: opacity 0.2s, transform 0.2s;
 }
 
-.carousel-arrow:hover { opacity: 0.75; }
+.carousel-arrow:hover:not(:disabled) { opacity: 0.75; }
+.carousel-arrow:disabled { opacity: 0.25; cursor: default; }
 /* Pin the arrows a fluid ~2vw in from the viewport edges regardless of container width */
 .carousel-arrow-prev { left: calc((100% - 100vw) / 2 + clamp(0.875rem, 2vw, 2rem)); }
 .carousel-arrow-next { right: calc((100% - 100vw) / 2 + clamp(0.875rem, 2vw, 2rem)); }
-.carousel-arrow-prev:hover { transform: translateY(-50%) translateX(-3px); }
-.carousel-arrow-next:hover { transform: translateY(-50%) translateX(3px); }
+.carousel-arrow-prev:hover:not(:disabled) { transform: translateY(-50%) translateX(-3px); }
+.carousel-arrow-next:hover:not(:disabled) { transform: translateY(-50%) translateX(3px); }
 
 .plan-section .carousel-arrow { color: var(--red); }
 .history-section .carousel-arrow { color: var(--yellow); }

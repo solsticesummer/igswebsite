@@ -56,14 +56,19 @@
   /* ---------- Generic carousel ---------- */
   function initCarousel(root) {
     var slides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
+    var prevBtn = root.querySelector(".carousel-arrow-prev");
+    var nextBtn = root.querySelector(".carousel-arrow-next");
     var current = 0;
 
     function goTo(index) {
       slides[current].classList.remove("is-active");
-      current = (index + slides.length) % slides.length;
+      current = Math.max(0, Math.min(index, slides.length - 1));
       slides[current].classList.add("is-active");
+      if (prevBtn) prevBtn.disabled = current === 0;
+      if (nextBtn) nextBtn.disabled = current === slides.length - 1;
     }
 
+    goTo(0);
     return { next: function () { goTo(current + 1); }, prev: function () { goTo(current - 1); } };
   }
 
