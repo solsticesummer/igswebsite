@@ -398,7 +398,7 @@ main > section { scroll-margin-top: 9999px; }
 .carousel-arrow {
   position: absolute;
   top: 45%;
-  transform: translateY(-50%);
+  translate: 0 -50%;
   z-index: 5;
   border: none;
   background: none;
@@ -415,8 +415,8 @@ main > section { scroll-margin-top: 9999px; }
 /* Pin the arrows a fluid ~2vw in from the viewport edges regardless of container width */
 .carousel-arrow-prev { left: calc((100% - 100vw) / 2 + clamp(0.875rem, 2vw, 2rem)); }
 .carousel-arrow-next { right: calc((100% - 100vw) / 2 + clamp(0.875rem, 2vw, 2rem)); }
-.carousel-arrow-prev:hover:not(:disabled) { transform: translateY(-50%) translateX(-3px); }
-.carousel-arrow-next:hover:not(:disabled) { transform: translateY(-50%) translateX(3px); }
+.carousel-arrow-prev:hover:not(:disabled) { transform: translateX(-3px); }
+.carousel-arrow-next:hover:not(:disabled) { transform: translateX(3px); }
 
 .plan-section .carousel-arrow { color: var(--red); }
 .history-section .carousel-arrow { color: var(--yellow); }
@@ -608,6 +608,7 @@ main > section { scroll-margin-top: 9999px; }
   .main-nav.is-open { display: flex; }
 
   .nav-link {
+    display: block;
     padding: 16px 32px;
     border-bottom: 1px solid var(--border);
   }
@@ -657,6 +658,10 @@ main > section { scroll-margin-top: 9999px; }
   .section-title { font-size: 26px; }
 
   .contact-info { padding-left: 0; }
+
+  /* Anchor the arrows to the carousel's top edge: it never moves between
+     slides, unlike the bottom/middle of the fluid-height slide content */
+  .carousel-arrow { top: 0; translate: none; }
 }
 
 @media (max-width: 560px) {
@@ -668,8 +673,7 @@ main > section { scroll-margin-top: 9999px; }
   .stats-row-red .stat-number { font-size: clamp(1.5rem, 9vw, 3rem); }
   .stats-row-red .stat-label { font-size: clamp(0.8125rem, 4vw, 1.0625rem); }
   .schedule-grid { grid-template-columns: 1fr; white-space: normal; }
-  .carousel { padding-bottom: 4rem; }
-  .carousel-arrow { top: auto; bottom: 0.75rem; transform: none; }
+  .carousel { padding-top: 3.5rem; }
   .carousel-arrow-prev { left: calc(50% - 3.5rem); }
   .carousel-arrow-next { right: calc(50% - 3.5rem); }
 }
