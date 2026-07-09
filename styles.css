@@ -14,6 +14,7 @@
   --blue-dark: #1c2e8a;
   --red: #e0453a;
   --yellow: #f4c945;
+  --yellow-dark: #9c7a12;
   --border: #e2e5eb;
   --radius: 16px;
   --max-width: 1330px;
@@ -406,12 +407,32 @@ main > section { scroll-margin-top: 9999px; }
   font-size: 34px;
   line-height: 1;
   cursor: pointer;
+  /* ≥44px hit area regardless of glyph size */
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 4px;
+  border-radius: 10px;
   transition: opacity 0.2s, transform 0.2s;
 }
 
 .carousel-arrow:hover:not(:disabled) { opacity: 0.75; }
+.carousel-arrow:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.carousel-arrow:active:not(:disabled) { opacity: 0.55; }
 .carousel-arrow:disabled { opacity: 0.25; cursor: default; }
+
+.carousel-count {
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  margin: 20px 0 0;
+}
+
+.carousel-count:empty { display: none; }
 /* Pin the arrows a fluid ~2vw in from the viewport edges regardless of container width */
 .carousel-arrow-prev { left: calc((100% - 100vw) / 2 + clamp(0.875rem, 2vw, 2rem)); }
 .carousel-arrow-next { right: calc((100% - 100vw) / 2 + clamp(0.875rem, 2vw, 2rem)); }
@@ -419,12 +440,13 @@ main > section { scroll-margin-top: 9999px; }
 .carousel-arrow-next:hover:not(:disabled) { transform: translateX(3px); }
 
 .plan-section .carousel-arrow { color: var(--red); }
-.history-section .carousel-arrow { color: var(--yellow); }
+/* Brand yellow reads too faint on the light background — use its darker cut */
+.history-section .carousel-arrow { color: var(--yellow-dark); }
 
 /* Mid-size viewports: the viewport gutter is too narrow to hold the arrows,
    so reserve a fluid gutter inside the carousel and pin the arrows to it —
    the text-to-arrow gap can never collapse */
-@media (max-width: 1480px) and (min-width: 561px) {
+@media (max-width: 1480px) and (min-width: 901px) {
   .carousel { padding-inline: clamp(3.5rem, 5vw, 4.5rem); }
   .carousel-arrow-prev { left: 0; }
   .carousel-arrow-next { right: 0; }
@@ -659,9 +681,25 @@ main > section { scroll-margin-top: 9999px; }
 
   .contact-info { padding-left: 0; }
 
-  /* Anchor the arrows to the carousel's top edge: it never moves between
-     slides, unlike the bottom/middle of the fluid-height slide content */
+  /* One mobile scheme for every paged view: a ◀ n/m ▶ cluster centered on
+     the carousel's top edge — it never moves between slides, unlike the
+     bottom/middle of the fluid-height slide content */
+  .carousel { padding-top: 3.25rem; }
+
   .carousel-arrow { top: 0; translate: none; }
+  .carousel-arrow-prev { left: calc(50% - 5.5rem); }
+  .carousel-arrow-next { right: calc(50% - 5.5rem); }
+
+  .carousel-count {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    translate: -50% 0;
+    margin: 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
 }
 
 @media (max-width: 560px) {
@@ -673,7 +711,4 @@ main > section { scroll-margin-top: 9999px; }
   .stats-row-red .stat-number { font-size: clamp(1.5rem, 9vw, 3rem); }
   .stats-row-red .stat-label { font-size: clamp(0.8125rem, 4vw, 1.0625rem); }
   .schedule-grid { grid-template-columns: 1fr; white-space: normal; }
-  .carousel { padding-top: 3.5rem; }
-  .carousel-arrow-prev { left: calc(50% - 3.5rem); }
-  .carousel-arrow-next { right: calc(50% - 3.5rem); }
 }
