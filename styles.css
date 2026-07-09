@@ -220,7 +220,7 @@ main > section { scroll-margin-top: 9999px; }
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  width: 300px;
+  width: min(300px, 100%);
   padding: 15px 26px;
   border-radius: 8px;
   font-size: 17px;
@@ -632,8 +632,12 @@ main > section { scroll-margin-top: 9999px; }
 
   .hero-location { font-size: 24px; }
   .hero-dates { font-size: 28px; }
+  .hero-content { padding-top: 96px; }
+
+  .eyebrow { font-size: 15px; }
 
   .plan-card,
+  .plan-card:has(.schedule-card),
   .contact-grid {
     grid-template-columns: 1fr;
   }
