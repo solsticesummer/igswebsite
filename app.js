@@ -31,6 +31,9 @@
     var target = document.getElementById(id) ? id : "home";
     sections.forEach(function (section) {
       section.classList.toggle("is-active", section.id === target);
+      // hiding a section mid-animation cancels it without animationend ever
+      // firing — always clear the stale enter state so it can't replay later
+      section.classList.remove("section-enter-fwd", "section-enter-back");
     });
     document.body.classList.toggle("on-home", target === "home");
     setActiveNav(target);
@@ -76,22 +79,56 @@
     });
   });
 
+  /* ---------- Cross-section cues ---------- */
+  var sectionToast = document.getElementById("sectionToast");
+  var toastTimer = null;
+
+  function showToast(label) {
+    sectionToast.textContent = label;
+    sectionToast.classList.add("is-visible");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      sectionToast.classList.remove("is-visible");
+    }, 1200);
+  }
+
+  function animateSectionEnter(sectionEl, dir) {
+    var cls = dir === "back" ? "section-enter-back" : "section-enter-fwd";
+    sectionEl.classList.remove("section-enter-fwd", "section-enter-back");
+    void sectionEl.offsetWidth; // restart the animation on repeat jumps
+    sectionEl.classList.add(cls);
+    sectionEl.addEventListener("animationend", function handler(e) {
+      // child animations (slide fade-in) bubble here too — only act on our own
+      if (e.target !== sectionEl) return;
+      sectionEl.classList.remove(cls);
+      sectionEl.removeEventListener("animationend", handler);
+    });
+  }
+
   /* ---------- Generic carousel ---------- */
-  // Like a nav click: switch section, run any panel/slide setup, record the hash
-  function jumpTo(sectionId, setup) {
+  // Like a nav click: switch section, run any panel/slide setup, record the
+  // hash. A cue ({label, dir}) marks a chain jump: animate the entering
+  // section and flash its name, so the "chapter change" is felt
+  function jumpTo(sectionId, setup, cue) {
     showSection(sectionId);
     if (setup) setup();
     history.pushState(null, "", "#" + sectionId);
+    if (cue) {
+      animateSectionEnter(document.getElementById(sectionId), cue.dir);
+      showToast(cue.label);
+    }
   }
 
   // onBeforeFirst / onAfterLast chain the carousel into the neighbouring
-  // section instead of dead-ending on a disabled arrow
+  // section instead of dead-ending on a disabled arrow; nextLabel names the
+  // upcoming section beside the ▶ arrow on the last slide
   function initCarousel(root, opts) {
     opts = opts || {};
     var slides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
     var prevBtn = root.querySelector(".carousel-arrow-prev");
     var nextBtn = root.querySelector(".carousel-arrow-next");
     var counter = root.querySelector(".carousel-count");
+    var hint = root.querySelector(".carousel-next-hint");
     var current = 0;
 
     function goTo(index) {
@@ -106,9 +143,21 @@
       slides[current].classList.remove("is-active");
       current = index;
       slides[current].classList.add("is-active");
+      var onLast = current === slides.length - 1;
       if (prevBtn) prevBtn.disabled = current === 0 && !opts.onBeforeFirst;
-      if (nextBtn) nextBtn.disabled = current === slides.length - 1 && !opts.onAfterLast;
+      if (nextBtn) {
+        nextBtn.disabled = onLast && !opts.onAfterLast;
+        nextBtn.setAttribute("aria-label", onLast && opts.nextLabel ? "下一页：" + opts.nextLabel : "下一张");
+      }
       if (counter) counter.textContent = (current + 1) + " / " + slides.length;
+      if (hint) {
+        if (onLast && opts.nextLabel) {
+          hint.textContent = opts.nextLabel;
+          hint.classList.add("is-visible");
+        } else {
+          hint.classList.remove("is-visible");
+        }
+      }
     }
 
     goTo(0);
@@ -142,34 +191,59 @@
   }
 
   /* ---------- The global page flow ----------
-     home → about(3) → plan(2) → history·盛况(8) → history·嘉宾 → contact */
+     home → about(3) → plan(2) → history·盛况(8) → history·嘉宾(2) → contact */
   var carousels = {};
 
   carousels.about = initCarousel(document.getElementById("aboutCarousel"), {
-    onBeforeFirst: function () { jumpTo("home"); },
+    nextLabel: "本届规划",
+    onBeforeFirst: function () {
+      jumpTo("home", null, { label: "首页", dir: "back" });
+    },
     onAfterLast: function () {
-      jumpTo("plan", function () { carousels.plan.goTo(0); });
+      jumpTo("plan", function () { carousels.plan.goTo(0); }, { label: "本届规划", dir: "fwd" });
     }
   });
 
   carousels.plan = initCarousel(document.getElementById("planCarousel"), {
+    nextLabel: "往届盛况回顾",
     onBeforeFirst: function () {
-      jumpTo("about", function () { carousels.about.goTo(carousels.about.count - 1); });
+      jumpTo("about", function () {
+        carousels.about.goTo(carousels.about.count - 1);
+      }, { label: "关于IGS", dir: "back" });
     },
     onAfterLast: function () {
       jumpTo("history", function () {
         activateHistoryPanel("highlights");
         carousels.history.goTo(0);
-      });
+      }, { label: "往届盛况回顾", dir: "fwd" });
     }
   });
 
   carousels.history = initCarousel(document.getElementById("historyCarousel"), {
+    nextLabel: "往届嘉宾回顾",
     onBeforeFirst: function () {
-      jumpTo("plan", function () { carousels.plan.goTo(carousels.plan.count - 1); });
+      jumpTo("plan", function () {
+        carousels.plan.goTo(carousels.plan.count - 1);
+      }, { label: "本届规划", dir: "back" });
     },
     onAfterLast: function () {
-      jumpTo("history", function () { activateHistoryPanel("guests"); });
+      jumpTo("history", function () {
+        activateHistoryPanel("guests");
+        carousels.guests.goTo(0);
+      }, { label: "往届嘉宾回顾", dir: "fwd" });
+    }
+  });
+
+  carousels.guests = initCarousel(document.getElementById("guestsCarousel"), {
+    nextLabel: "联系我们",
+    onBeforeFirst: function () {
+      jumpTo("history", function () {
+        activateHistoryPanel("highlights");
+        carousels.history.goTo(carousels.history.count - 1);
+      }, { label: "往届盛况回顾", dir: "back" });
+    },
+    onAfterLast: function () {
+      jumpTo("contact", null, { label: "联系我们", dir: "fwd" });
     }
   });
 
@@ -185,18 +259,14 @@
     attachSwipe(root.closest(".carousel"), carousels[key]);
   });
 
-  /* ---------- Flow arrows on carousel-less pages (嘉宾回顾 / 联系我们) ---------- */
+  /* ---------- Flow arrows on carousel-less pages (联系我们) ---------- */
   var flowStops = {
-    "history-highlights-last": function () {
+    "history-guests-last": function () {
       jumpTo("history", function () {
-        activateHistoryPanel("highlights");
-        carousels.history.goTo(carousels.history.count - 1);
-      });
-    },
-    "history-guests": function () {
-      jumpTo("history", function () { activateHistoryPanel("guests"); });
-    },
-    "contact": function () { jumpTo("contact"); }
+        activateHistoryPanel("guests");
+        carousels.guests.goTo(carousels.guests.count - 1);
+      }, { label: "往届嘉宾回顾", dir: "back" });
+    }
   };
 
   document.querySelectorAll("[data-flow]").forEach(function (btn) {

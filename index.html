@@ -59,6 +59,7 @@
       <div class="carousel" id="aboutCarousel">
         <button class="carousel-arrow carousel-arrow-prev" data-carousel="about" data-dir="-1" aria-label="上一张">◀</button>
         <button class="carousel-arrow carousel-arrow-next" data-carousel="about" data-dir="1" aria-label="下一张">▶</button>
+        <span class="carousel-next-hint" aria-hidden="true"></span>
 
         <div class="carousel-track">
 
@@ -111,6 +112,7 @@
       <div class="carousel" id="planCarousel">
         <button class="carousel-arrow carousel-arrow-prev" data-carousel="plan" data-dir="-1" aria-label="上一张">◀</button>
         <button class="carousel-arrow carousel-arrow-next" data-carousel="plan" data-dir="1" aria-label="下一张">▶</button>
+        <span class="carousel-next-hint" aria-hidden="true"></span>
 
         <div class="carousel-track">
 
@@ -225,6 +227,7 @@
         <div class="carousel" id="historyCarousel">
           <button class="carousel-arrow carousel-arrow-prev" data-carousel="history" data-dir="-1" aria-label="上一张">◀</button>
           <button class="carousel-arrow carousel-arrow-next" data-carousel="history" data-dir="1" aria-label="下一张">▶</button>
+          <span class="carousel-next-hint" aria-hidden="true"></span>
 
           <div class="carousel-track">
 
@@ -330,19 +333,31 @@
       </div>
 
       <div class="tab-panel" data-tab-panel="guests">
-        <div class="carousel flow-page">
-          <button class="carousel-arrow carousel-arrow-prev" data-flow="history-highlights-last" aria-label="上一页">◀</button>
-          <button class="carousel-arrow carousel-arrow-next" data-flow="contact" aria-label="下一页">▶</button>
+        <h2 class="section-title">往届参会嘉宾</h2>
+        <div class="carousel" id="guestsCarousel">
+          <button class="carousel-arrow carousel-arrow-prev" data-carousel="guests" data-dir="-1" aria-label="上一张">◀</button>
+          <button class="carousel-arrow carousel-arrow-next" data-carousel="guests" data-dir="1" aria-label="下一张">▶</button>
+          <span class="carousel-next-hint" aria-hidden="true"></span>
 
-          <h2 class="section-title">往届参会嘉宾</h2>
-          <img src="images/guests-1.jpg" alt="往届参会嘉宾" class="guests-photo">
-          <img src="images/guests-2.jpg" alt="往届参会嘉宾" class="guests-photo">
+          <div class="carousel-track">
 
-          <!-- 往届部分合作伙伴 Past partners -->
-          <div class="partners-block">
-            <h2 class="section-title">往届部分合作伙伴</h2>
-            <img src="images/partner-logos.png" alt="往届部分合作伙伴 logo 墙" class="about-grid-photo partners-photo">
+            <div class="carousel-slide is-active">
+              <img src="images/guests-1.jpg" alt="往届参会嘉宾" class="guests-photo">
+            </div>
+
+            <div class="carousel-slide">
+              <img src="images/guests-2.jpg" alt="往届参会嘉宾" class="guests-photo">
+            </div>
+
           </div>
+
+          <p class="carousel-count" aria-hidden="true"></p>
+        </div>
+
+        <!-- 往届部分合作伙伴 Past partners -->
+        <div class="partners-block">
+          <h2 class="section-title">往届部分合作伙伴</h2>
+          <img src="images/partner-logos.png" alt="往届部分合作伙伴 logo 墙" class="about-grid-photo partners-photo">
         </div>
       </div>
 
@@ -354,7 +369,7 @@
   <section id="contact" class="section contact-section">
     <div class="container">
       <div class="carousel flow-page">
-        <button class="carousel-arrow carousel-arrow-prev" data-flow="history-guests" aria-label="上一页">◀</button>
+        <button class="carousel-arrow carousel-arrow-prev" data-flow="history-guests-last" aria-label="上一页">◀</button>
 
         <h2 class="section-title">联系我们</h2>
         <div class="contact-grid">
@@ -374,6 +389,8 @@
   </section>
 
 </main>
+
+<div class="section-toast" id="sectionToast" role="status"></div>
 
 <script src="app.js"></script>
 </body>
